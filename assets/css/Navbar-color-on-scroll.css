@@ -1,0 +1,57 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.navbar {
+  transition: all 420ms ease-in-out;
+}
+
+.main-header {
+  position: relative;
+}
+
+.animate-me {
+  animation: fadeIn 1s ease-in-out,bounceIn 3s ease-in-out;
+}
+
+.fadein-me {
+  animation-delay: 400ms;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    scale: 12;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.header-info {
+  background-color: rgba(41,47,51,0.6);
+}
+
