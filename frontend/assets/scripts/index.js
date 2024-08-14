@@ -5,7 +5,7 @@ new Vue({
         input:"",               //to get the search input from user
         action: "Search",       //to make tha search button dynamic i.e for both download and search
         btncolor: "btn-success", //color of the button to change accordingly
-        wrong:false
+        shaking:""              //shake search bar to indicate no input value
       }
     },
     methods: {
@@ -23,7 +23,9 @@ new Vue({
             this.action="Search";
           }
         } else{
-          this.wrong=true
+          this.shaking="shake"
+          setTimeout(() => {
+            this.isShaking = false;}, 50);
         }
       }
     },
