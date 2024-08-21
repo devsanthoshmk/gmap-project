@@ -22,10 +22,6 @@ new Vue({
             this.btncolor='btn-success'
             this.action="Search";
           }
-        } else{
-          this.shaking="shake"
-          setTimeout(() => {
-            this.isShaking = false;}, 50);
         }
       }
     },
