@@ -73,18 +73,11 @@
                                     </button>
                                     <!-- Dropdown menu -->
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <li><a class="dropdown-item d-flex justify-content-between" href="#">
-                                                Action
+                                        <li><a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
+                                                Comming Soon...  
                                                 <i class="fas fa-info-circle"></i>
                                             </a></li>
-                                        <li><a class="dropdown-item d-flex justify-content-between" href="#">
-                                                Another action
-                                                <i class="fas fa-info-circle"></i>
-                                            </a></li>
-                                        <li><a class="dropdown-item d-flex justify-content-between" href="#">
-                                                Something else here
-                                                <i class="fas fa-info-circle"></i>
-                                            </a></li>
+                                            
                                     </ul>
                                     <button @click="act(input)" :class="['btn', btncolor,'btn-lg']"
                                         style="border-top-left-radius: 2px; border-bottom-left-radius:2px;">{{action}}</button>
@@ -102,21 +95,14 @@
                             </button>
                             <!-- Dropdown menu -->
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item d-flex justify-content-between" href="#">
-                                        Action
+                                <li><a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
+                                        Comming Soon...
                                         <i class="fas fa-info-circle"></i>
                                     </a></li>
-                                <li><a class="dropdown-item d-flex justify-content-between" href="#">
-                                        Another action
-                                        <i class="fas fa-info-circle"></i>
-                                    </a></li>
-                                <li><a class="dropdown-item d-flex justify-content-between" href="#">
-                                        Something else here
-                                        <i class="fas fa-info-circle"></i>
-                                    </a></li>
+                                
                             </ul>
                             <button @click="act(input)" :class="['btn', btncolor,'btn-lg']"
-                                style="border-top-left-radius: 2px; border-bottom-left-radius:2px;">{{action}}</button>
+                                style="border-top-left-radius: 2px; border-bottom-left-radius:2px;"><span :class="{'d-none':spin, 'spinner-border':true}" role="status" aria-hidden="true"></span>{{action}}</button>
                         </div>
                     </div>
                 </div>
