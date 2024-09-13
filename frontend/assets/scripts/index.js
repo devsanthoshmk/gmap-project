@@ -14,27 +14,51 @@ new Vue({
       log(ob){
         console.log(ob);
       },
-      act(search){
-        if (search.trim()){  
-          spin=false;
-          this.action="";
-          this.btncolor='btn-primary';
-          setTimeout(function() {
-            spin=true;
+      async act(search){
+        let a_lis=[];
+        if (search.trim()){ 
             if (this.action==="Search"){
-
-            this.action="Download";
-
-            
+              this.spin=false;
+              this.action="";
+              this.btncolor='border';
+              // await  new Promise(resolve => setTimeout(resolve, 3000));
+              fetch(`/download?query=${encodeURIComponent(search)}` )
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.blob();
+              })
+              .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.id="del"
+                a.href = url;
+                a.download = search+'.xlsx'; // Filename for download
+                document.body.appendChild(a);
+                this.btncolor='btn-primary';
+                this.spin=true;
+                this.action="Download";
+                
+              })
+              .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+              });
           } else {
+            let a= document.getElementById('del');
+            a.click();
+            a.remove();
             this.btncolor='btn-success'
             this.action="Search";
+            this.input="";
           }
-          },3000);
+             
+
+            
+          } 
+          
           
         }
       }
-    },
-    created() {
     }
-  });
+  );

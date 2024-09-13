@@ -4,12 +4,18 @@ from lxml import etree
 from urllib.parse import unquote
 import json
 
+from pandas import DataFrame
+from openpyxl import Workbook
+from io import BytesIO
+
+import time
+t1=time.time()
+
 def search(query):
     result = []
     PAGINATION = 0
-
+    seen=[]
     while True:
-        session = HTMLSession()
         url = 'https://www.google.com/localservices/prolist?hl=en&ssta=1&q='+query+'&oq='+query+'&src=2&lci='+str(PAGINATION)
         # print(url)
 
@@ -22,13 +28,16 @@ def search(query):
         data_script = json.loads(data_script)
 
         placesData = data_script["data"][1][0]
-        print()
-        print(placesData)
-
+        print(PAGINATION)
         try:
             for i in range(0,len(placesData)):
+                id=placesData[i][21][0][1][4]
+                if id not in seen:
+                    seen.append(id)
+                else:
+                    break
                 obj = {
-                    "id": placesData[i][21][0][1][4],
+                    "id": id,
                     "title": placesData[i][10][5][1],
                     "category": placesData[i][21][9],
                     "address": "",
@@ -70,6 +79,8 @@ def search(query):
                     None
 
                 result.append(obj)
+
+            PAGINATION += 20
         except TypeError:
             break
 
@@ -80,25 +91,61 @@ def search(query):
         # else:
         #     PAGINATION += len(placesData)
 
-    with open("./backend/test_pagination.json", 'w') as f:
-        json.dump(data_script["data"], f)
-    print()
-    return result
+    # with open("./backend/test_pagination.json", 'w') as f:
+    #     json.dump(data_script["data"], f)
+    # print()
+    # # return result
+    full_list=[["NAME","CATEGORY","REVIEW_COUNT","STARS","PHONE NO.","ADDRESS","LINKS"]]
+    for i in result:
+        # try:
+            # status=i['state']
+            # if "Open" in status or "Closed" in status:        STATE/STATUS IS NOT FOUND BY THIS METHOD BUT CAN USING RAPID API
+            #     Status="Functioning"
+            # else:
+            #     Status="Not Sure"
+        # except (KeyError,TypeError):
+        #     Status=""
+        full_list.append([i['title'],i['category'],i['reviews'],i['stars'],i['completePhoneNumber'],i['address'],f'=HYPERLINK("https://www.google.com/maps/place/?q=place_id:{i["id"]}", "Click here")'   ])
+        
+      
+    wb = Workbook()
+    excel_buffer = BytesIO()
+    ws = wb.active
+
+    for row in full_list:
+        ws.append(row)
+
+    # Adjust column widths
+    column_widths = [40,20, 13, 23, 8, 17, 50, 10]
+    for col_num, width in enumerate(column_widths, start=1):
+        col_letter = ws.cell(row=1, column=col_num).column_letter
+        ws.column_dimensions[col_letter].width = width
+
+    wb.save(excel_buffer)
+    excel_buffer.seek(0)
+    return excel_buffer
+
+
+    
 if __name__=="__main__":
-    res=search("gift shop in chennai")
-    with open("./backend/final.json", 'w') as f:
-        json.dump(res, f)
-    def remove_duplicates(data, key):
-        seen = set()
-        unique_data = []
-        for item in data:
-            # Extract the value of the specified key
-            value = item[key]
-            # If the value hasn't been seen before, add it to the unique_data list
-            if value not in seen:
-                unique_data.append(item)
-                seen.add(value)
-        return unique_data
-    print(res[0])
-    print(len(res))
-    print(len(remove_duplicates(res,"id")))
+    search("gift shop in chennai")
+    
+    ''' To test without writing excel...'''
+    # with open("./backend/final.json", 'w') as f:
+    #     json.dump(res, f)
+    # def remove_duplicates(data, key):
+    #     seen = set()
+    #     unique_data = []
+    #     for item in data:
+    #         # Extract the value of the specified key
+    #         value = item[key]
+    #         # If the value hasn't been seen before, add it to the unique_data list
+    #         if value not in seen:
+    #             unique_data.append(item)
+    #             seen.add(value)
+    #     return unique_data
+    # print(res[0])
+    # print(len(res))
+    # print(len(remove_duplicates(res,"id")))
+    # print((time.time()-t1))
+    

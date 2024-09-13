@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
+    <title>Gmap Vigilante</title>
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="./assets/css/Navbar-color-on-scroll.css">
@@ -37,7 +37,7 @@
         <nav class="navbar navbar-expand-md bg-dark py-3" data-bs-theme="dark">
             <div class="container"><a
                     class="navbar-brand d-flex align-items-start align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center align-items-xxl-center"
-                    href="#"><span
+                    href="https://github.com/devsanthoshmk/gmap-project"><span
                         class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon"><svg
                             xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
                             stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -74,13 +74,13 @@
                                     <!-- Dropdown menu -->
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li><a class="dropdown-item d-flex align-items-center justify-content-center" href="#">
-                                                Comming Soon...  
+                                                Comming Soon...
                                                 <i class="fas fa-info-circle"></i>
                                             </a></li>
-                                            
+
                                     </ul>
                                     <button @click="act(input)" :class="['btn', btncolor,'btn-lg']"
-                                        style="border-top-left-radius: 2px; border-bottom-left-radius:2px;">{{action}}</button>
+                                        style="border-top-left-radius: 2px; border-bottom-left-radius:2px;"><span :class="{'d-none':spin, 'spinner-grow text-primary':true}" role="status" aria-hidden="true"></span>{{action}}</button>
                                 </div>
                             </div>
                         </div>
@@ -99,16 +99,19 @@
                                         Comming Soon...
                                         <i class="fas fa-info-circle"></i>
                                     </a></li>
-                                
+
                             </ul>
-                            <button @click="act(input)" :class="['btn', btncolor,'btn-lg']"
-                                style="border-top-left-radius: 2px; border-bottom-left-radius:2px;"><span :class="{'d-none':spin, 'spinner-border':true}" role="status" aria-hidden="true"></span>{{action}}</button>
-                        </div>
+
+                                    <button @click="act(input)" :class="['btn', btncolor,'btn-lg']"
+                                        style="border-top-left-radius: 2px; border-bottom-left-radius:2px;"><span :class="{'d-none':spin, 'spinner-grow text-primary':true}" role="status" aria-hidden="true"></span>{{action}}</button>
+                                </div>
                     </div>
                 </div>
 
             </div>
         </div>
+
+
         <footer>
             <div class="d-flex justify-content-center footer-class" style=" width: 100%;">
                 <ul class="list-inline bg-dark text-center" style="width: 20vh; height: 6%; border-radius: 45px;">
